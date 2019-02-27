@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "283714936253",
+    "firebase_url": "https://pet-lost-and-found.firebaseio.com",
+    "project_id": "pet-lost-and-found",
+    "storage_bucket": "pet-lost-and-found.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:283714936253:android:1435d75a061aaefe",
+        "android_client_info": {
+          "package_name": "com.example.zakweakland.lostandhound"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "283714936253-q8gdql17ar8uhb5oj4an28p549sfb5nq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.zakweakland.lostandhound",
+            "certificate_hash": "aed4f4b850833e46f21e76a3597634400d9683f3"
+          }
+        },
+        {
+          "client_id": "283714936253-kau4ee4hjnlmp38u9malbr3ercr06h8l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAppySTcAbr_jzdudIF0u6X-z6_ktYWQ0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "283714936253-kau4ee4hjnlmp38u9malbr3ercr06h8l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

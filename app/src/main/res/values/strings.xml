@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Lost and Hound</string>
+    <color name="gray">#D3D3D3</color>
+    <color name="darkGray">#808080</color>
+</resources>
