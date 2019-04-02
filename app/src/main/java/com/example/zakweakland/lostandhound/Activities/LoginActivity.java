@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         firebaseAuth = FirebaseAuth.getInstance();
 
         //activities
-        homeActivity = new Intent(this, HomeActivity.class);
+        homeActivity = new Intent(this, HomeDrawer.class);
         registerActivity = new Intent(this, RegisterActivity.class);
     }
 
