@@ -30,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private ProgressDialog progressDialog;
     private Button buttonRegister;
     private Button alreadyRegisterLogin;
-    private EditText editTextEmail, editTextPassword, editTextFirstName, editTextLastName;
+    private EditText editTextEmail, editTextPassword, editTextFirstName, editTextConfirmPwd;
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -47,9 +47,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         // text fields
         editTextFirstName = findViewById(R.id.firstName);
-        editTextLastName = findViewById(R.id.lastName);
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
+        editTextConfirmPwd = findViewById(R.id.confirmPassword);
 
         // init button click
         buttonRegister.setOnClickListener(this);
@@ -65,10 +65,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private void registerUser(){
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        String confirmPassword = editTextConfirmPwd.getText().toString().trim();
         final String firstName = editTextFirstName.getText().toString();
-        final String lastName = editTextLastName.getText().toString();
 
-        if (TextUtils.isEmpty(firstName) || (TextUtils.isEmpty(lastName))){
+        if (TextUtils.isEmpty(firstName)){
             Toast.makeText(this, "Please Fill Out All Fields", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -78,10 +78,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
         if (TextUtils.isEmpty(password)){
-            // email is empty
+            // password is empty
             Toast.makeText(this, "Please Enter Your Password", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (TextUtils.isEmpty(confirmPassword)){
+            // confirmed password is empty
+            Toast.makeText(this, "Please Confirm Your Password", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!password.equals(confirmPassword)){
+            // passwords don't match
+            Toast.makeText(this, "Passwords Do Not Match", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
 
 
         progressDialog.setMessage("Registering... Please wait...");
@@ -101,7 +113,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
 
-                            updateUserInfo(firstName, lastName, firebaseAuth.getCurrentUser());
+                            updateUserInfo(firstName, firebaseAuth.getCurrentUser());
 
                         }
                         if(!task.isSuccessful()){
@@ -114,7 +126,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     // update user first name and last name
-    private void updateUserInfo(String firstName, String lastName, FirebaseUser currentUser) {
+    private void updateUserInfo(String firstName, FirebaseUser currentUser) {
 
 //        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child()
 
