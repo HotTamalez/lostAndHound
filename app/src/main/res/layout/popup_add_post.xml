@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/gray">
 
 
     <Spinner
@@ -24,6 +24,7 @@
         android:id="@+id/submitDogName"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/popup_edittext_style"
         android:ems="10"
         android:hint="Enter your dog's name"
@@ -38,6 +39,7 @@
         android:id="@+id/submitDogAge"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/popup_edittext_style"
         android:ems="10"
         android:hint="Dog Age (roughly)"
@@ -52,6 +54,7 @@
         android:id="@+id/submitDogPhoto"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +85,8 @@
     <EditText
         android:id="@+id/submitAdditionalInformation"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/popup_edittext_style"
         android:ems="10"
         android:gravity="top|left"

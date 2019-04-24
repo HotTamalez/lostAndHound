@@ -46,9 +46,17 @@ import com.example.zakweakland.lostandhound.Fragments.HomeFragment;
 import com.example.zakweakland.lostandhound.Fragments.ProfileFragment;
 import com.example.zakweakland.lostandhound.Fragments.SettingsFragment;
 import com.example.zakweakland.lostandhound.Fragments.SubmitFragment;
+import com.example.zakweakland.lostandhound.Models.Post;
 import com.example.zakweakland.lostandhound.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.w3c.dom.Text;
 
@@ -252,6 +260,41 @@ public class HomeDrawer extends AppCompatActivity
                     //fields are checked
                     //create post object and add to firebase
 
+                    StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("post_images");
+                    final StorageReference imageFilePath = storageReference.child(pickedImageUri.getLastPathSegment());
+                    imageFilePath.putFile(pickedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            imageFilePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String imageDownloadLink = uri.toString();
+                                    // create Post object
+
+                                    Post post = new Post(dropDownBreed.getSelectedItem().toString(),
+                                            popupDogName.getText().toString(),
+                                            popupDogAge.getText().toString(),
+                                            popupAdditionalInfo.getText().toString(),
+                                            imageDownloadLink,
+                                            currentUser.getUid(),
+                                            new Object());
+
+                                    addPost(post);
+
+                                }
+
+
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    showMessage(e.getMessage());
+                                }
+                            });
+
+                        }
+                    });
+
 
                 }
                 else {
@@ -260,6 +303,28 @@ public class HomeDrawer extends AppCompatActivity
 
             }
         });
+
+    }
+
+    private void addPost(Post post) {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference("Posts").push();
+
+        // generate unique id
+        String key = reference.getKey();
+        post.setPostKey(key);
+
+        // add post data to firebase
+        reference.setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                showMessage("Post Added Successfully");
+                popupAddPost.dismiss();
+            }
+        });
+
+
 
     }
 
