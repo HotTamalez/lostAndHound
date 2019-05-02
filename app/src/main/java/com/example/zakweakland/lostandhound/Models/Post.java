@@ -2,7 +2,10 @@ package com.example.zakweakland.lostandhound.Models;
 
 import com.google.firebase.database.ServerValue;
 
-public class Post {
+import java.io.Serializable;
+
+public class Post implements Serializable {
+
     private String postKey;
     private String breed;
     private String dogName;
@@ -12,14 +15,14 @@ public class Post {
     private String userID;
     private Object timestamp;
 
-    public Post(String breed, String dogName, String dogAge, String additionalInfo, String image, String userID, Object timestamp) {
+    public Post(String breed, String dogName, String dogAge, String additionalInfo, String image, String userID) {
         this.breed = breed;
         this.dogName = dogName;
         this.dogAge = dogAge;
         this.additionalInfo = additionalInfo;
         this.image = image;
         this.userID = userID;
-        this.timestamp = timestamp;
+        this.timestamp = ServerValue.TIMESTAMP;
     }
 
     public Post(){

@@ -70,7 +70,7 @@ public class HomeDrawer extends AppCompatActivity
         FirebaseUser currentUser;
         private static final int PRegCde = 2;
         private static final int REQUEST_CODE = 2;
-        Spinner dropDownBreed;
+        public Spinner dropDownBreed;
         Dialog popupAddPost;
         ImageView popupImagePost;
         EditText popupDogName, popupDogAge, popupAdditionalInfo;
@@ -148,6 +148,10 @@ public class HomeDrawer extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         updateNavHeader();
+
+        // set home fragment as default
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
     }
 
     // click image to open gallery to post image
@@ -251,11 +255,12 @@ public class HomeDrawer extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                if (dropDownBreed.getSelectedItem() != null
-                    && !popupDogName.getText().toString().isEmpty()
-                    && !popupDogAge.getText().toString().isEmpty()
-                    && !popupAdditionalInfo.getText().toString().isEmpty()
-                    && pickedImageUri != null ) {
+
+                if (dropDownBreed.getSelectedItem() != "Select a Dog Breed"
+                        && !popupDogName.getText().toString().isEmpty()
+                        && !popupDogAge.getText().toString().isEmpty()
+                        && !popupAdditionalInfo.getText().toString().isEmpty()
+                        && pickedImageUri != null ) {
 
                     //fields are checked
                     //create post object and add to firebase
@@ -277,8 +282,7 @@ public class HomeDrawer extends AppCompatActivity
                                             popupDogAge.getText().toString(),
                                             popupAdditionalInfo.getText().toString(),
                                             imageDownloadLink,
-                                            currentUser.getUid(),
-                                            new Object());
+                                            currentUser.getUid());
 
                                     addPost(post);
 
@@ -429,5 +433,14 @@ public class HomeDrawer extends AppCompatActivity
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (popupAddPost != null) {
+            popupAddPost.dismiss();
+            popupAddPost = null;
+        }
     }
 }
