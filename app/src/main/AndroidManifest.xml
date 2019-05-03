@@ -30,6 +30,7 @@
             android:name=".Activities.HomeDrawer"
             android:label="@string/title_activity_home_drawer"
             android:theme="@style/AppTheme"></activity>
+        <activity android:name=".Activities.PostDetailActivity"/>
     </application>
 
 </manifest>

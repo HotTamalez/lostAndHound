@@ -1,6 +1,7 @@
 package com.example.zakweakland.lostandhound.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.zakweakland.lostandhound.Activities.PostDetailActivity;
 import com.example.zakweakland.lostandhound.Models.Post;
 import com.example.zakweakland.lostandhound.R;
 
@@ -61,6 +63,24 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             postTitle = itemView.findViewById(R.id.rowPostTitle);
             imgPost = itemView.findViewById(R.id.rowPostImage);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent postDetailActivity = new Intent(context, PostDetailActivity.class);
+                    int position = getAdapterPosition();
+
+                    postDetailActivity.putExtra("name", mData.get(position).getDogName());
+                    postDetailActivity.putExtra("breed", mData.get(position).getBreed());
+                    postDetailActivity.putExtra("age", mData.get(position).getDogAge());
+                    postDetailActivity.putExtra("desc", mData.get(position).getAdditionalInfo());
+                    postDetailActivity.putExtra("image", mData.get(position).getImage());
+                    postDetailActivity.putExtra("key", mData.get(position).getPostKey());
+//                    postDetailActivity.putExtra("username", mData.get(position).getUserName());
+                    long timestamp = (long) mData.get(position).getTimestamp();
+                    postDetailActivity.putExtra("timestamp", timestamp);
+                    context.startActivity(postDetailActivity);
+                }
+            });
         }
     }
 }
